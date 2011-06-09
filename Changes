@@ -1,0 +1,6 @@
+Revision history for Perl extension System::Timeout.
+
+0.01  Thu Jun  9 17:12:14 2011
+	- original version; created by h2xs 1.23 with options
+		-XA -n System::Timeout
+
