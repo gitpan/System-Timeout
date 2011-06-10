@@ -10,7 +10,7 @@ require Exporter;
 @ISA = qw(Exporter);
 @EXPORT_OK = qw(system system_ex log);
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub system
 {
@@ -113,11 +113,8 @@ System::Timeout - Extend <system()> to Allow Timeout after specified seconds
 =head1 DESCRIPTION
 
 This module extends <system()> to allow timeout after the specified seconds and log the command in file.
-
 This can be useful when invoking <system()> in daemon.
-
 This also include a cli tool "timeout" which can be easily used to force command exit after specified seconds.
-
 This module is based on core function <fork()> and <exec()>.
 
 

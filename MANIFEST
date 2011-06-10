@@ -5,4 +5,5 @@ README
 t/00System-Timeout.t
 t/01bin-timeout.t
 lib/System/Timeout.pm
+bin/timeout
 META.yml                                 Module meta-data (added by MakeMaker)
