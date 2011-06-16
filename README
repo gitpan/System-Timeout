@@ -3,10 +3,10 @@ System-Timeout version 0.02
 
 DESCRIPTION
 
-This module extends system() to allow timeout after the specified seconds and log the command in file.
-This can be useful when invoking system() in daemon.
+This module extends system() to allow timeout after the specified seconds.
 This also include a cli tool "timeout" which can be easily used to force command exit after specified seconds.
-This module is based on core function fork() and exec().
+This module is based on core function fork(), exec(), sleep().
+These can be useful when invoking system() in daemon.
 
 INSTALLATION
 

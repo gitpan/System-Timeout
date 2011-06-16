@@ -1,7 +1,7 @@
 --- #YAML:1.0
 name:               System-Timeout
-version:            0.02
-abstract:           Extend <system()> to Allow Timeout after specified seconds
+version:            0.03
+abstract:           extend system() to allow timeout after specified seconds
 author:
     - ChenGang <yikuyiku.com@gmail.com>
 license:            unknown
