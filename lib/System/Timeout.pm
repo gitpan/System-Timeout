@@ -10,7 +10,7 @@ require Exporter;
 @ISA = qw(Exporter);
 @EXPORT_OK = qw(system system_ex log);
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 sub system
 {
@@ -32,43 +32,51 @@ sub system_ex
 {
     return 0 unless $_[0];
     my $r = 0;
-    unless ($_[0] =~ /^\d+$/)
+    my $timeout_secs;
+    if ($_[0] =~ /^\d+$/)
     {
-        $r = CORE::system(@_);
+        $timeout_secs = shift @_;
     }
     else
     {
-        my $timeout_secs = shift @_;
-        eval
+        $timeout_secs = 999999999;
+    }
+
+    eval
+    {
+        my $child;
+        my $status = 0;
+        local %SIG;
+        $SIG{ALRM} = sub {alarm 0; $SIG{CHLD} = sub{waitpid(-1,WNOHANG);}; kill KILL=> $child; CORE::die "child_timeout";};
+        $SIG{TERM} = sub {alarm 0; $SIG{CHLD} = sub{waitpid(-1,WNOHANG);}; kill KILL=> $child; CORE::die "parent_killed";};
+        $SIG{CHLD} = sub {alarm 0; waitpid(-1,WNOHANG); $status = -1 unless $? == 0; CORE::die "child_exit[$status]";};
+        alarm $timeout_secs;
+        defined($child = fork) or CORE::die "cannot_fork";
+        if($child == 0)
         {
-            my $child;
-            my $status = 0;
-            local %SIG;
-            $SIG{ALRM} = sub {alarm 0; $SIG{CHLD} = sub{waitpid(-1,WNOHANG);}; kill KILL=> $child; CORE::die "child_timeout";};
-            $SIG{CHLD} = sub {alarm 0; waitpid(-1,WNOHANG); $status = -1 unless $? == 0; CORE::die "child_exit[$status]";};
-            alarm $timeout_secs;
-            defined($child = fork) or CORE::die "cannot_fork";
-            if($child == 0)
-            {
-                exec(@_);
-            }
-            sleep ($timeout_secs + 9);
-        };
-        if ($@)
+            exec(@_);
+        }
+        sleep ($timeout_secs + 9);
+    };
+    if ($@)
+    {
+        if ($@ =~ /child_exit/)
         {
-            if ($@ =~ /child_exit/)
-            {
-                my ($child_exit_status) = $@ =~ /child_exit\[(\-?\d+)\]/;
-                $r = $child_exit_status;
-            }
-            elsif ($@ =~ /child_timeout/ or $@ =~ /cannot_fork/)
-            {
-                $r = -1;
-            }
-            else
-            {
-                $r = -1;
-            }
+            my ($child_exit_status) = $@ =~ /child_exit\[(\-?\d+)\]/;
+            $r = $child_exit_status;
+        }
+        elsif ($@ =~ /parent_killed/)
+        {
+            kill TERM => $$;
+            $r = -1;
+        }
+        elsif ($@ =~ /child_timeout/ or $@ =~ /cannot_fork/)
+        {
+            $r = -1;
+        }
+        else
+        {
+            $r = -1;
         }
     }
     return $r;

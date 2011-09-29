@@ -4,6 +4,9 @@ Revision history for Perl extension System::Timeout.
     - original version; created by h2xs 1.23 with options: -XA -n System::Timeout
 0.02  Fri Jun 10 10:10:14 2011
     - some bug fixed
-0.03  Thu Jun 16 11:14:24 CST 2011
+0.03  Thu Jun 16 11:14:24 2011
     - add system_log()
     - make the document more attractive
+0.04  Thu Sep 29 17:44:42 2011
+    - some bug fixed
+    - kill child proc when got $SIG{TERM}
