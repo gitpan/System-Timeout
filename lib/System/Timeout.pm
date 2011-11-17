@@ -10,7 +10,7 @@ require Exporter;
 @ISA = qw(Exporter);
 @EXPORT_OK = qw(system system_ex log);
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 sub system
 {
@@ -45,11 +45,10 @@ sub system_ex
     eval
     {
         my $child;
-        my $status = 0;
         local %SIG;
-        $SIG{ALRM} = sub {alarm 0; $SIG{CHLD} = sub{waitpid(-1,WNOHANG);}; kill KILL=> $child; CORE::die "child_timeout";};
-        $SIG{TERM} = sub {alarm 0; $SIG{CHLD} = sub{waitpid(-1,WNOHANG);}; kill KILL=> $child; CORE::die "parent_killed";};
-        $SIG{CHLD} = sub {alarm 0; waitpid(-1,WNOHANG); $status = -1 unless $? == 0; CORE::die "child_exit[$status]";};
+        $SIG{ALRM} = sub {alarm 0; $SIG{CHLD} = sub{waitpid(-1,WNOHANG);}; kill TERM=> $child; CORE::die "child_timeout";};
+        $SIG{TERM} = sub {alarm 0; $SIG{CHLD} = sub{waitpid(-1,WNOHANG);}; kill TERM=> $child; CORE::die "parent_killed";};
+        $SIG{CHLD} = sub {alarm 0; $SIG{CHLD} = sub{waitpid(-1,WNOHANG);}; CORE::die "child_exit[$?]";};
         alarm $timeout_secs;
         defined($child = fork) or CORE::die "cannot_fork";
         if($child == 0)

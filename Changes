@@ -10,3 +10,6 @@ Revision history for Perl extension System::Timeout.
 0.04  Thu Sep 29 17:44:42 2011
     - some bug fixed
     - kill child proc when got $SIG{TERM}
+0.05  Thu Nov 17 10:32:39 2011
+    - some test remove
+    - kill child process use TERM instead of KILL
