@@ -1,21 +1,14 @@
----
-abstract: 'extend system() to allow timeout after specified seconds'
-author:
-  - 'ChenGang <yikuyiku.com@gmail.com>'
-build_requires:
-  ExtUtils::MakeMaker: 0
-configure_requires:
-  ExtUtils::MakeMaker: 0
-dynamic_config: 1
-generated_by: 'ExtUtils::MakeMaker version 6.59, CPAN::Meta::Converter version 2.112621'
-license: unknown
+--- #YAML:1.0
+name:                System-Timeout
+version:             0.06
+abstract:            extend C<system> to allow timeout after specified seconds
+license:             ~
+author:              
+    - ChenGang <yikuyiku.com@gmail.com>
+generated_by:        ExtUtils::MakeMaker version 6.42
+distribution_type:   module
+requires:     
+    IPC::Cmd:                      0.72
 meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
-name: System-Timeout
-no_index:
-  directory:
-    - t
-    - inc
-requires: {}
-version: 0.05
+    url:     http://module-build.sourceforge.net/META-spec-v1.3.html
+    version: 1.3

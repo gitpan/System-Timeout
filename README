@@ -1,12 +1,11 @@
-System-Timeout version 0.05
+System-Timeout version 0.06
 ===========================
 
 DESCRIPTION
 
 This module extends system() to allow timeout after the specified seconds.
 This also include a cli tool "timeout" which can be easily used to force command exit after specified seconds.
-This module is based on core function fork(), exec(), sleep().
-These can be useful when invoking system() in daemon.
+
 
 INSTALLATION
 
@@ -17,9 +16,6 @@ To install this module type the following:
    make test
    make install
 
-DEPENDENCIES
-
-This module requires no other modules or libraries.
 
 COPYRIGHT AND LICENCE
 

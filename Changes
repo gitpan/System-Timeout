@@ -13,3 +13,7 @@ Revision history for Perl extension System::Timeout.
 0.05  Thu Nov 17 10:32:39 2011
     - some test remove
     - kill child process use TERM instead of KILL
+0.06  Fri Dec  9 22:33:52 2011
+	- use IPC::Cmd instead of fork() and exec()
+	- rename system_ex() to timeout()
+	- delete system_log()

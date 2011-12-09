@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w 
-use System::Timeout qw(system);
+use System::Timeout qw(timeout);
 
 {
     my $timeout = shift @ARGV;
@@ -8,7 +8,7 @@ use System::Timeout qw(system);
     my ($secs) = $timeout =~ /--timeout=(\d+)$/;
     last unless($secs);
 
-    my $r = system($secs, @ARGV);
+    my $r = timeout($secs, @ARGV);
     exit $r;
 }
 print "Usage: ./timeout --timeout=[SECONDS] [COMMAND] \n";
