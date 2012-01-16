@@ -8,7 +8,7 @@ require Exporter;
 @ISA = qw(Exporter);
 @EXPORT_OK = qw(system timeout);
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 sub system
 {

@@ -1,5 +1,5 @@
 {
-   "abstract" : "extend system() to allow timeout after specified seconds",
+   "abstract" : "extend C<system> to allow timeout after specified seconds",
    "author" : [
       "ChenGang <yikuyiku.com@gmail.com>"
    ],
@@ -31,9 +31,11 @@
          }
       },
       "runtime" : {
-         "requires" : {}
+         "requires" : {
+            "IPC::Cmd" : "0.72"
+         }
       }
    },
    "release_status" : "stable",
-   "version" : "0.05"
+   "version" : "0.07"
 }
